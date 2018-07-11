@@ -5,7 +5,7 @@ typedef struct VariableMapping VariableMapping;
 struct VariableMapping{
   char *name;
   int *storage;
-}
+};
 
 /**
 * Parse and compare the string. It ignored all the spaces.  ('^')/
@@ -21,7 +21,11 @@ int parseAndCompare(char **linePtr, char *cmpStr); // macam string compare
 * converted. If there is no number, ERR_NOT_A_NUMBER          (cannot return 0 cuz '0' also is number)
 * is thrown.
 **/
+
+//int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping);
 int parseAndConvertToNum(char **linePtr);
 int parseTextAndAssignValues();
 
+int stringCompare(char *str1, char *str2);
+char *convertToLowerCase(char *name);
 #endif // _TEXTPARSER_H

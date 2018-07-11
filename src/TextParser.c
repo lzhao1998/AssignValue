@@ -1,4 +1,78 @@
 #include "TextParser.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+char *convertToLowerCase(char *name)
+{
+  //if there is no word/NULL
+  if(name == NULL)
+  {
+    return NULL;
+  }
+  int i = 0;
+  char *buffer;
+  buffer = (char*)malloc(strlen(name)+1);
+  strcpy(buffer,name);
+  //convert the word to lowercase 1 by 1 when the last character is not NULL
+  while(buffer[i] != '\0')
+  {
+   buffer[i] = tolower(buffer[i]);
+    ++i;
+  }
+    return buffer;
+}
+
+int stringCompare(char *str1, char *str2)
+{
+  int i = 0,j = 0;
+  char *temp1,*temp2;
+  temp1 = convertToLowerCase(str1);
+  temp2 = convertToLowerCase(str2);
+  while(temp1[i] != '\0' || temp2[j] != '\0')
+  {
+    if(temp1[i] == temp2[j])
+    {
+      i++; j++;
+    }
+    else if(temp1[i] == ' ')
+    {
+      i++;
+    }
+    else if(temp2[j] == ' ')
+    {
+      j++;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  return 1;
+  /*if(strlen(temp1) == strlen(temp2))
+  {
+    while(temp1[i] != '\0' || temp2[i] != '\0')
+    {
+      if(temp1[i] == temp2[i])
+      {
+        i++;
+      }
+      else
+      {
+        //FALSE
+        return 0;
+      }
+    }
+    //TRUE
+    return 1;
+  }
+  else
+  {
+    //FALSE
+    return 0;
+  }*/
+}
 
 /**
 * Parse and compare the string. It ignored all the spaces.  ('^')/
@@ -24,5 +98,5 @@ int parseAndConvertToNum(char **linePtr)
 
 int parseTextAndAssignValues()
 {
-  
+
 }
