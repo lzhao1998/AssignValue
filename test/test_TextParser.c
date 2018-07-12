@@ -2,26 +2,16 @@
 #include <malloc.h>
 #include <stdarg.h>
 #include <ctype.h>
-#include <string.h>
 #include "unity.h"
-//#include "Error.h"
+#include "Error.h"
 #include "TextParser.h"
-//#include "Exception.h"
-//#include "CException.h"
+#include "Exception.h"
+#include "CException.h"
 
 void setUp(void){}
 void tearDown(void){}
 
-void test_ting(void)
-{
-  char* contents = "Oh MY GOD~";
-  if (contents[0] == '\n')
-  memmove(contents, contents+1, strlen(contents)-1);
-  printf("strlen of content is %d\n", strlen(contents)-1);
-  printf("contents is %s\n", contents);
-}
-
-/*  TEST THE STRINGCOMPARE FUNCTION  */
+/*  TEST THE STRINGCOMPARE FUNCTION  *//*
 void test_stringCompare_assign_with_assign_return_true(void)
 {
   char *str1 = "assign";
@@ -133,8 +123,18 @@ void test_stringCompare_space_assign_space_apple_with_space_assign_space_space_r
   char *str2 = "   assign        ";
   int i = stringCompare(str1, str2);
   TEST_ASSERT_EQUAL(1,i);
-}
+}*/
 
+void test_stringCompare_assign_space_apple_with_space_assign_space_space_and_original_pointer8_return_true_(void)
+{
+  char *str1 = "assign apple";
+  char *originalStr1 = str1;
+  char *str2 = "assign        ";
+  int i = stringCompare(&str1, str2);
+  TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
+}
+/*
 //FOR COMPARE EQUAL SIGN
 void test_stringCompare_equal_with_equal_return_true(void)
 {
@@ -166,10 +166,11 @@ void test_stringCompare_equal_with_semicolon_return_false(void)
   char *str2 = ";";
   int i = stringCompare(str1, str2);
   TEST_ASSERT_EQUAL(0,i);
-}
+}*/
 
 
 /*  TEST THE GETNUM FUNCTION  */
+/*
 void test_getNum_input_using_string_123_return_123(void)
 {
   char *str = "123";
@@ -196,7 +197,7 @@ void test_getNum_input_using_string_a123_return_0(void)
   char *str = "a123";
   int i = getNumber(str);
   TEST_ASSERT_EQUAL(0,i);
-}
+}*/
 
 /*
 void test_parseTextAndAssignValues_given_no_table_mapping_should_throw_ERR_TABLE_IS_MISSING(void) {
@@ -365,5 +366,4 @@ void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_thro
     TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
     freeError(e);
   }
-}
-*/
+}*/

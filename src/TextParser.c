@@ -5,59 +5,42 @@
 #include <stdlib.h>
 #include <math.h>
 
-char *convertToLowerCase(char *name)
+/* Only compare the 1st word in the string, if there is another word or number
+** behind the word in the strings, ignore it.
+**
+** EXAMPLE:
+** string is 'hello world'  what we need is 'hello'  ==> return 1;
+**
+** If there is space infront both string,  ignore it.
+** If the 1st word in the string is wrong, return 0;
+**
+**                 whole string     what we need
+**                        |           |
+*/
+int stringCompare(char **str1, char *str2)
 {
-  //if there is no word/NULL
-  if(name == NULL)
-  {
-    return NULL;
-  }
-  int i = 0;
-  char *buffer;
-  buffer = (char*)malloc(strlen(name)+1);
-  strcpy(buffer,name);
-  //convert the word to lowercase 1 by 1 when the last character is not NULL
-  while(buffer[i] != '\0')
-  {
-   buffer[i] = tolower(buffer[i]);
-    ++i;
-  }
-    return buffer;
-}
-
-// Only compare the 1st word in the string, if there is another word or number
-// behind the word in the strings, ignore it.
-//
-// EXAMPLE:
-// string is 'hello world'  what we need is 'hello'  ==> return 1;
-//
-// If there is space infront both string,  ignore it.
-// If the 1st word in the string is wrong, return 0;
-//
-//                 whole string     what we need
-//                        |           |
-int stringCompare(char *str1, char *str2)
-{
-  int i = 0,j = 0;//strlength = 0;
-  char *temp1,*temp2;
-  temp1 = convertToLowerCase(str1);
-  temp2 = convertToLowerCase(str2);
+  int i = 0,j = 0;
+  char *temp2;
+  char *temp1 = (char *)malloc(strlen(*str1));
+  strcpy(temp1,(*str1));
+  temp2 = str2;
   while(temp1[i] != '\0' || temp2[j] != '\0') //if both is not NULL (still need some improvement here)
   {
     if(temp1[i] == temp2[j])  // if both are same, both pointer move forward 1
     {
       i++; j++;
-    //  strlength++;
+      //*str1++;
     }
     else if(temp1[i] == ' ')  //if 1 of then got 'space' move pointer forward
     {
       i++;
-    //  strlength++;
+      //*str1++;
     }
     else if(temp2[j] == '\0') //if the 1st word compare is all true, return 1;
     {
+      (*str1) = (*str1) + i;
+      //*str1++;
       return 1;
-      //return strlength;
     }
     else if(temp2[j] == ' ')
     {
@@ -68,8 +51,10 @@ int stringCompare(char *str1, char *str2)
       return 0;
     }
   }
+  (*str1) = (*str1) + i;
+  //*str1++;
+//  free(temp1);
   return 1; //if pass, return 1
-  //return strlength;
 }
 
 /* If there is alphabet or symbol in front of the number, return 0
