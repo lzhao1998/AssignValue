@@ -1,4 +1,5 @@
 #include "TextParser.h"
+#include "Exception.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -33,7 +34,7 @@ int stringCompare(char **str1, char *str2)
     else if(temp2[j] == '\0') //if the 1st word compare is all true, return 1;
     {
       (*str1) = (*str1) + i;
-     free(temp1);
+      free(temp1);
       return 1;
     }
     else if(temp1[i] == ' ' && isalpha(temp2[i-1])  && isalpha(temp2[i+1]))
@@ -106,7 +107,95 @@ int parseAndConvertToNum(char **linePtr)
   return output;
 }
 
-int parseTextAndAssignValues()
+void skipTheSpace(char **line)
 {
+  //if there still got space, just skip it
+  while(isspace(**line))
+  {
+    (*line)++;
+  }
+}
 
+int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
+{
+  int i = 0;
+  //if there is space in front, skip it 1st
+  while(isspace(**line))
+  {
+    *line++;
+  }
+
+  if(*line == NULL)
+  {
+    // line = NULL, just return instead of throw exception
+    return 1;
+  }
+  else if(varTableMapping == NULL)
+  {
+    // varTableMapping = NULL , throw error 5(err table missing)
+    throwSimpleError(5, "ERR_TABLE_IS_MISSING!");
+  }
+  else
+  {
+    //if there is 'assign' word in the line
+    if(stringCompare(line,"assign") == 1)
+    {
+      //while the table is not complete search yet
+      while(varTableMapping != NULL)
+      {
+        //if the name inside table is same with line
+        skipTheSpace(line);
+        //int i = 0;
+        //i = stringCompare(line,varTableMapping->name);
+        //printf("i is %d\n", i);
+        //printf("line is %s\n", *line);
+        if(*line == NULL)
+        {
+          throwSimpleError(2,"ERROR!! IT IS UNKNOWN VARIABLE!!");
+        }
+        else if(stringCompare(line,varTableMapping->name) == 1)
+        {
+          //check for the equal sign, true = find value, false = throw error
+          while(isspace(**line))
+          {
+            *line++;
+          }
+          if(stringCompare(line,"=") == 1)
+          {
+            //assume the value is all correct
+            printf("bello\n");
+            while(isspace(**line))
+            {
+              *line++;
+            }
+            if(isalpha(**line) == 1)
+            {
+              throwSimpleError(1,"ERROR!! IT IS NOT A NUMBER!!");
+            }
+            else
+            {
+              *varTableMapping->storage =  parseAndConvertToNum(line);
+              varTableMapping++;
+            }
+          }
+          else
+          {
+            //when there is no equal sign, throw error
+            throwSimpleError(4,"ERROR_MALFORM_ASSIGN!!");
+          }
+        }
+        else
+        {
+          // if table not same, check for the next one
+          varTableMapping++;
+        }
+      }
+      return 1;
+    }
+    //if there is NO 'assign' word in the line, throw error 3(error unknown command)
+    else
+    {
+      throwSimpleError(3,"That is not a command");
+    }
+  }
 }
