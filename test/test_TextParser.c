@@ -11,77 +11,115 @@
 void setUp(void){}
 void tearDown(void){}
 
-/*  TEST THE STRINGCOMPARE FUNCTION  *//*
+/*  TEST THE STRINGCOMPARE FUNCTION  */
 void test_stringCompare_assign_with_assign_return_true(void)
 {
   char *str1 = "assign";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_assign_with_space_assign_return_true(void)
 {
   char *str1 = "assign";
   char *str2 = " assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_assign_with_assign_space_return_true(void)
 {
   char *str1 = "assign";
   char *str2 = "assign ";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_space_assign_with_assign_return_true(void)
 {
   char *str1 = " assign";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
 }
 
 void test_stringCompare_assign_space_with_assign_return_true(void)
 {
   char *str1 = "assign ";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_assign_space_with_assign_space_return_true(void)
 {
   char *str1 = "assign ";
   char *str2 = "assign ";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
 }
 
 void test_stringCompare_space_assign_with_space_assign_return_true(void)
 {
   char *str1 = "assign ";
   char *str2 = " assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_asign_with_assign_return_false(void)
 {
   char *str1 = "asign";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(0,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+2, str1);
 }
 
 void test_stringCompare_assign_with_asign_return_false(void)
 {
   char *str1 = "assign";
   char *str2 = "asign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(0,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+2, str1);
+}
+
+void test_stringCompare_ass_space_ign_with_assign_return_false(void)
+{
+  char *str1 = "ass ign";
+  char *str2 = "assign";
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
+  TEST_ASSERT_EQUAL(0,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str1);
+}
+
+void test_stringCompare_assign_with_ass_spcae_ign_return_false(void)
+{
+  char *str1 = "assign";
+  char *str2 = "ass ign";
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
+  TEST_ASSERT_EQUAL(0,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str1);
 }
 
 //FOR NOT ONLY JUST INPUT ASSIGN
@@ -89,115 +127,142 @@ void test_stringCompare_assign_space_apple_with_assign_return_true(void)
 {
   char *str1 = "assign apple";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_assign_space_apple_with_space_assign_return_true(void)
 {
   char *str1 = "assign apple";
   char *str2 = " assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+6, str1);
 }
 
 void test_stringCompare_space_assign_space_apple_with_assign_return_true(void)
 {
   char *str1 = " assign apple";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
 }
 
 void test_stringCompare_apple_space_assign_with_assign_return_false(void)
 {
   char *str1 = "apple assign";
   char *str2 = "assign";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(0,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+1, str1);
 }
 
 void test_stringCompare_space_assign_space_apple_with_space_assign_space_space_return_true(void)
 {
   char *str1 = "  assign apple";
   char *str2 = "   assign        ";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
-}*/
+  TEST_ASSERT_EQUAL_PTR(originalStr1+9, str1);
+}
 
-void test_stringCompare_assign_space_apple_with_space_assign_space_space_and_original_pointer8_return_true_(void)
+void test_stringCompare_assign_space_apple_with_space_assign_space_space_and_original_pointer_plus7_return_true_(void)
 {
   char *str1 = "assign apple";
   char *originalStr1 = str1;
   char *str2 = "assign        ";
   int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  //is +7, not +6 is because the 'space' behind both string is same place
   TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
 }
-/*
-//FOR COMPARE EQUAL SIGN
+
+//FOR COMPARE EQUAL SIGN  //DONE
+
 void test_stringCompare_equal_with_equal_return_true(void)
 {
   char *str1 = "=";
   char *str2 = "=";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+1, str1);
 }
 
 void test_stringCompare_space_equal_with_equal_space_return_true(void)
 {
   char *str1 = " =";
   char *str2 = "= ";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+2, str1);
 }
 
 void test_stringCompare_equal_space_with_space_equal_return_true(void)
 {
   char *str1 = "= ";
   char *str2 = " =";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+1, str1);
 }
 
 void test_stringCompare_equal_with_semicolon_return_false(void)
 {
   char *str1 = "=";
   char *str2 = ";";
-  int i = stringCompare(str1, str2);
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(0,i);
-}*/
+  TEST_ASSERT_EQUAL_PTR(originalStr1, str1);
+}
 
 
-/*  TEST THE GETNUM FUNCTION  */
-/*
-void test_getNum_input_using_string_123_return_123(void)
+/*  TEST THE PARSEANDCONVERTTONUM FUNCTION  */ //done~
+void test_parseAndConvertToNum_input_using_string_123_return_123(void)
 {
   char *str = "123";
-  int i = getNumber(str);
+  char *originalStr1 = str;
+  int i = parseAndConvertToNum(&str);
   TEST_ASSERT_EQUAL(123,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str);
 }
 
-void test_getNum_input_using_string_123a_return_123(void)
+void test_parseAndConvertToNum_input_using_string_123a_return_123(void)
 {
   char *str = "123a";
-  int i = getNumber(str);
+  char *originalStr1 = str;
+  int i = parseAndConvertToNum(&str);
   TEST_ASSERT_EQUAL(123,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str);
 }
 
-void test_getNum_input_using_string_space_123_return_123(void)
+void test_parseAndConvertToNum_input_using_string_space_123_return_123(void)
 {
   char *str = " 123";
-  int i = getNumber(str);
+  char *originalStr1 = str;
+  int i = parseAndConvertToNum(&str);
   TEST_ASSERT_EQUAL(123,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+4, str);
 }
 
-void test_getNum_input_using_string_a123_return_0(void)
+void test_parseAndConvertToNum_input_using_string_a123_return_0(void)
 {
   char *str = "a123";
-  int i = getNumber(str);
+  char *originalStr1 = str;
+  int i = parseAndConvertToNum(&str);
   TEST_ASSERT_EQUAL(0,i);
-}*/
+  TEST_ASSERT_EQUAL_PTR(originalStr1, str);
+}
 
 /*
 void test_parseTextAndAssignValues_given_no_table_mapping_should_throw_ERR_TABLE_IS_MISSING(void) {

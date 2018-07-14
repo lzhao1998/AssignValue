@@ -29,60 +29,41 @@ int stringCompare(char **str1, char *str2)
     if(temp1[i] == temp2[j])  // if both are same, both pointer move forward 1
     {
       i++; j++;
-      //*str1++;
-    }
-    else if(temp1[i] == ' ')  //if 1 of then got 'space' move pointer forward
-    {
-      i++;
-      //*str1++;
     }
     else if(temp2[j] == '\0') //if the 1st word compare is all true, return 1;
     {
       (*str1) = (*str1) + i;
-      //*str1++;
+     free(temp1);
       return 1;
     }
-    else if(temp2[j] == ' ')
+    else if(temp1[i] == ' ' && isalpha(temp2[i-1])  && isalpha(temp2[i+1]))
+    {
+      (*str1) = (*str1) + i;
+      return 0;
+    }
+    else if(temp2[i] == ' ' && isalpha(temp1[i-1])  && isalpha(temp1[i+1]))
+    {
+      (*str1) = (*str1) + i;
+      return 0;
+    }
+    else if(temp2[j] == ' ')  //if 1 of then got 'space' move pointer forward
     {
       j++;
     }
+    else if(temp1[i] == ' ')
+    {
+      i++;
+    }
     else  //if wrong then return 0
     {
+      (*str1) = (*str1) + i;
+      free(temp1);
       return 0;
     }
   }
   (*str1) = (*str1) + i;
-  //*str1++;
-//  free(temp1);
+  free(temp1);
   return 1; //if pass, return 1
-}
-
-/* If there is alphabet or symbol in front of the number, return 0
-** If there is alphabet or symbol behing of the number, return number
-** If there is a space, ignroe the space and pointer move forward
-** Return number if there is only number in it
-*/
-int getNumber(char *str)
-{
-  int i = 0, tempNum1 = 0, tempNum2 = 0, output = 0;
-  char *temp1;
-  temp1 = str;
-  while(isdigit(temp1[i]) || temp1[i] == ' ')
-  {
-    if(temp1[i] == ' ')
-    {
-      i++;
-    }
-    else
-    {
-      tempNum1 = temp1[i] - 48;
-      printf("tempNum1 is %d\n",tempNum1 );
-      output = (output * 10) + tempNum1;
-      printf("output is %d\n",output);
-      i++;
-    }
-  }
-  return output;
 }
 
 /**
@@ -104,7 +85,25 @@ int parseAndCompare(char **linePtr, char *cmpStr)
 **/
 int parseAndConvertToNum(char **linePtr)
 {
-  return 0; //(for temp use only)
+  int i = 0, tempNum1 = 0, output = 0;
+  char *temp1 = (char *)malloc(strlen(*linePtr));
+  strcpy(temp1,(*linePtr));
+  while(isdigit(temp1[i]) || temp1[i] == ' ')
+  {
+    if(temp1[i] == ' ')
+    {
+      i++;
+    }
+    else
+    {
+      tempNum1 = temp1[i] - 48;
+      output = (output * 10) + tempNum1;
+      i++;
+    }
+  }
+  (*linePtr) = (*linePtr) + i;
+  free(temp1);
+  return output;
 }
 
 int parseTextAndAssignValues()
