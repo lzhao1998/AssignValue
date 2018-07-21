@@ -12,7 +12,6 @@ void setUp(void){}
 void tearDown(void){}
 
 /*  TEST THE STRINGCOMPARE FUNCTION  */
-/*
 void test_stringCompare_assign_with_assign_return_true(void)
 {
   char *str1 = "assign";
@@ -122,7 +121,7 @@ void test_stringCompare_assign_with_ass_spcae_ign_return_false(void)
   TEST_ASSERT_EQUAL(0,i);
   TEST_ASSERT_EQUAL_PTR(originalStr1+3, str1);
 }
-*/
+
 //FOR NOT ONLY JUST INPUT ASSIGN
 void test_stringCompare_assign_space_apple_with_assign_return_true(void)
 {
@@ -196,32 +195,11 @@ void test_stringCompare_assign_space_apple_with_space_assign_space_space_and_ori
   TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
 }
 
-//FOR COMPARE EQUAL SIGN  //DONE
-/*
+//FOR COMPARE EQUAL SIGN
 void test_stringCompare_equal_with_equal_return_true(void)
 {
   char *str1 = "=";
   char *str2 = "=";
-  char *originalStr1 = str1;
-  int i = stringCompare(&str1, str2);
-  TEST_ASSERT_EQUAL(1,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1+1, str1);
-}
-
-void test_stringCompare_space_equal_with_equal_space_return_true(void)
-{
-  char *str1 = " =";
-  char *str2 = "= ";
-  char *originalStr1 = str1;
-  int i = stringCompare(&str1, str2);
-  TEST_ASSERT_EQUAL(1,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1+2, str1);
-}
-
-void test_stringCompare_equal_space_with_space_equal_return_true(void)
-{
-  char *str1 = "= ";
-  char *str2 = " =";
   char *originalStr1 = str1;
   int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
@@ -237,90 +215,8 @@ void test_stringCompare_equal_with_semicolon_return_false(void)
   TEST_ASSERT_EQUAL(0,i);
   TEST_ASSERT_EQUAL_PTR(originalStr1, str1);
 }
-*/
 
-/*  TEST THE PARSEANDCONVERTTONUM FUNCTION  */ //done~
-/*
-void test_parseAndConvertToNum_input_using_string_123_return_123(void)
-{
-  char *str = "123";
-  char *originalStr1 = str;
-  int i = parseAndConvertToNum(&str);
-  TEST_ASSERT_EQUAL(123,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str);
-}
-
-void test_parseAndConvertToNum_input_using_string_123a_return_123(void)
-{
-  char *str = "123a";
-  char *originalStr1 = str;
-  int i = parseAndConvertToNum(&str);
-  TEST_ASSERT_EQUAL(123,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1+3, str);
-}
-
-void test_parseAndConvertToNum_input_using_string_space_123_return_123(void)
-{
-  char *str = " 123";
-  char *originalStr1 = str;
-  int i = parseAndConvertToNum(&str);
-  TEST_ASSERT_EQUAL(123,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1+4, str);
-}
-
-void test_parseAndConvertToNum_input_using_string_a123_return_0(void)
-{
-  char *str = "a123";
-  char *originalStr1 = str;
-  int i = parseAndConvertToNum(&str);
-  TEST_ASSERT_EQUAL(0,i);
-  TEST_ASSERT_EQUAL_PTR(originalStr1, str);
-}
-
-//SKIP SPACE
-void test_skip_the_space(void)
-{
-  char *str = "    abc";
-  char *ori = str;
-  skipTheSpace(&str);
-  TEST_ASSERT_EQUAL_PTR(ori+4, str);
-}
-*/
-/*
-//ok no prob
-void test_parseTextAndAssignValues_given_no_table_mapping_should_throw_ERR_TABLE_IS_MISSING(void) {
-  CEXCEPTION_T e;
-  char *line = " assign mango = 589 ";
-
-  Try {
-    parseTextAndAssignValues(&line, NULL);
-    TEST_FAIL_MESSAGE("Expect ERR_TABLE_IS_MISSING. But no exception thrown.");
-  } Catch(e) {
-    printf(e->errorMsg);
-    freeError(e);
-  }
-}
-//OK no prb
-void test_parseTextAndAssignValues_given_no_command_should_do_nothing(void) {
-  CEXCEPTION_T e;
-  int tomato = 0;
-  VariableMapping varTableMapping[] = {
-    {"tomato", &tomato},
-    {NULL, NULL},
-  };
-  char *line = NULL;
-
-  Try {
-    parseTextAndAssignValues(&line, varTableMapping);
-    // Should reach here because no command given
-  } Catch(e) {
-    printf(e->errorMsg);
-    freeError(e);
-  }
-}*/
-
-/////////////////////////////////////
-/*
+/*  TEST THE PARSEANDCONVERTTONUM FUNCTION  */
 void test_parseTextAndAssignValues_given_input_command_is_NULL_should_do_nothing(void) {
   CEXCEPTION_T e;
   int kiwi = 0;
@@ -332,7 +228,6 @@ void test_parseTextAndAssignValues_given_input_command_is_NULL_should_do_nothing
 
   Try {
     parseTextAndAssignValues(&line, varTableMapping);
-    TEST_FAIL_MESSAGE("nothing~");
     // Should reach here because no command given
   } Catch(e) {
     printf(e->errorMsg);
@@ -340,8 +235,8 @@ void test_parseTextAndAssignValues_given_input_command_is_NULL_should_do_nothing
   }
 }
 
-// assign orange  = 21346 apple = 1 lemon=10
-void test_parseTextAndAssignValues_given_orange_21346_apple_1_lemon_10_should_assigned_correctly(void) {
+// assign apple  = 21346 orange = 1 lemon=10
+void test_parseTextAndAssignValues_given_apple_21346_orange_1_lemon_10_should_assigned_correctly(void) {
   CEXCEPTION_T e;
   int orange = 0, apple = 0, lemon = 0;
   VariableMapping varTableMapping[] = {
@@ -350,20 +245,19 @@ void test_parseTextAndAssignValues_given_orange_21346_apple_1_lemon_10_should_as
     {"lemon", &lemon},
     {NULL, NULL},
   };
-  char *line = "assign orange  = 21346 apple = 1 lemon=10";
+  char *line = "assign apple  = 21346 orange = 1 lemon=10";
 
   Try {
     parseTextAndAssignValues(&line, varTableMapping);
-
-    TEST_ASSERT_EQUAL(21346, orange);
-    TEST_ASSERT_EQUAL(1, apple);
+    TEST_ASSERT_EQUAL(21346, apple);
+    TEST_ASSERT_EQUAL(1, orange);
     TEST_ASSERT_EQUAL(10, lemon);
   } Catch(e) {
     printf(e->errorMsg);
     freeError(e);
   }
 }
-*/
+
 void test_parseTextAndAssignValues_given_melon_and_value_with_trailing_spaces_should_parse_properly(void) {
   CEXCEPTION_T e;
   int melon = 0;
@@ -371,7 +265,7 @@ void test_parseTextAndAssignValues_given_melon_and_value_with_trailing_spaces_sh
     {"melon  ", &melon},
     {NULL, NULL},
   };
-  char *line = "assign melon = 89   ";
+  char *line = "assign melon  = 89   ";
 
   Try {
     parseTextAndAssignValues(&line, varTableMapping);
@@ -381,8 +275,8 @@ void test_parseTextAndAssignValues_given_melon_and_value_with_trailing_spaces_sh
     freeError(e);
   }
 }
-/*
-///OK no prb
+
+
 void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
   CEXCEPTION_T e;
   int papaya = 0;
@@ -400,9 +294,9 @@ void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UN
     TEST_ASSERT_EQUAL(ERR_UNKNOWN_COMMAND, e->errorCode);
     freeError(e);
   }
-}*/
+}
 
-/*
+
 void test_parseTextAndAssignValues_given_guava_23_cucumber_92_should_throw_ERR_UNKNOWN_VARIABLE(void) {
   CEXCEPTION_T e;
   int guava = 0;
@@ -414,7 +308,6 @@ void test_parseTextAndAssignValues_given_guava_23_cucumber_92_should_throw_ERR_U
 
   Try {
     parseTextAndAssignValues(&line, varTableMapping);
-    printf("line is =%s\n", line);
     TEST_FAIL_MESSAGE("Expect ERR_UNKNOWN_VARIABLE. But no exception thrown.");
   } Catch(e) {
     TEST_ASSERT_EQUAL(23, guava);
@@ -422,9 +315,9 @@ void test_parseTextAndAssignValues_given_guava_23_cucumber_92_should_throw_ERR_U
     TEST_ASSERT_EQUAL(ERR_UNKNOWN_VARIABLE, e->errorCode);
     freeError(e);
   }
-}*/
-/*
-//OK no prob
+}
+
+
 void test_parseTextAndAssignValues_given_malform_pineapple_without_equal_sign_should_throw_ERR_MALFORM_ASSIGN(void) {
   CEXCEPTION_T e;
   int pineapple = 0;
@@ -442,8 +335,8 @@ void test_parseTextAndAssignValues_given_malform_pineapple_without_equal_sign_sh
     TEST_ASSERT_EQUAL(ERR_MALFORM_ASSIGN, e->errorCode);
     freeError(e);
   }
-}*/
-/*
+}
+
 void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_throw_ERR_NOT_A_NUMBER(void) {
   CEXCEPTION_T e;
   int ciku = 0;
@@ -461,4 +354,4 @@ void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_thro
     TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
     freeError(e);
   }
-}*/
+}

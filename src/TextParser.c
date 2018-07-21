@@ -107,18 +107,6 @@ int parseAndConvertToNum(char **linePtr)
   free(temp1);
   return output;
 }
-char *skipWhiteSpaces(char *str) {
-  while(*str == ' ' || *str == '\t') str++;
-  return str;
-}
-void skipTheSpace(char **line)
-{
-  //if there still got space, just skip it
-  while(isspace(**line))
-  {
-    (*line)++;
-  }
-}
 
 int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
 {
@@ -126,12 +114,10 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
   //if there is space in front, skip it 1st
   while(isspace(**line))
   {
-    printf("a is %s\n", *line);
-    *line++;
-    printf("b is %s\n", *line);
+    (*line)++;
   }
 
-  if(*line == NULL)
+  if(*line == NULL || (**line) == '\0')
   {
     // line = NULL, just return instead of throw exception
     return 1;
@@ -147,23 +133,14 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
     if(stringCompare(line,"assign") == 1)
     {
       //while the table is not complete search yet
-      while(varTableMapping != NULL)
+      while(varTableMapping->name != NULL)
       {
         //if the name inside table is same with line
-        //skipTheSpace(line);
         while(isspace(**line))
         {
-          printf("lineline is %s\n", *line);
-          //while(**line == ' ') 
-            *line++;
-          //(*line) = (*line) + 1;
-          printf("lineline2 is %s\n", *line);
+          (*line)++;
         }
-        //int i = 0;
-        //i = stringCompare(line,varTableMapping->name);
-        //printf("i is %d\n", i);
-        printf("line4 is %s\n", *line);
-        if(*line == NULL)
+         if(*line == NULL)
         {
           throwSimpleError(2,"ERROR!! IT IS UNKNOWN VARIABLE!!");
         }
@@ -172,17 +149,16 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
           //check for the equal sign, true = find value, false = throw error
           while(isspace(**line))
           {
-            *line++;
+            (*line)++;
           }
           if(stringCompare(line,"=") == 1)
           {
             //assume the value is all correct
-            printf("bello\n");
             while(isspace(**line))
             {
-              *line++;
+              (*line)++;
             }
-            if(isalpha(**line) == 1)
+            if(isdigit(**line) == 0)
             {
               throwSimpleError(1,"ERROR!! IT IS NOT A NUMBER!!");
             }
@@ -204,7 +180,18 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
           varTableMapping++;
         }
       }
-      return 1;
+      while(isspace(**line))
+      {
+        (*line)++;
+      }
+      if(*line == NULL)
+      {
+        return 1;
+      }
+      else
+      {
+        throwSimpleError(2,"This is unknown variable");
+      }
     }
     //if there is NO 'assign' word in the line, throw error 3(error unknown command)
     else

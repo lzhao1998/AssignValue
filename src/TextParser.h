@@ -24,6 +24,5 @@ int parseAndCompare(char **linePtr, char *cmpStr); // macam string compare
 
 int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping);
 int parseAndConvertToNum(char **linePtr);
-void skipTheSpace(char **line);
 int stringCompare(char **str1, char *str2);
 #endif // _TEXTPARSER_H
