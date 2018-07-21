@@ -122,7 +122,7 @@ void test_stringCompare_assign_with_ass_spcae_ign_return_false(void)
   TEST_ASSERT_EQUAL(0,i);
   TEST_ASSERT_EQUAL_PTR(originalStr1+3, str1);
 }
-
+*/
 //FOR NOT ONLY JUST INPUT ASSIGN
 void test_stringCompare_assign_space_apple_with_assign_return_true(void)
 {
@@ -152,6 +152,17 @@ void test_stringCompare_space_assign_space_apple_with_assign_return_true(void)
   int i = stringCompare(&str1, str2);
   TEST_ASSERT_EQUAL(1,i);
   TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
+}
+
+void test_stringCompare_space_assign_space_apple_equal_89_with_assign_return_true(void)
+{
+  char *str1 = " assign apple = 89";
+  char *str2 = "assign";
+  char *originalStr1 = str1;
+  int i = stringCompare(&str1, str2);
+  TEST_ASSERT_EQUAL(1,i);
+  TEST_ASSERT_EQUAL_PTR(originalStr1+7, str1);
+  TEST_ASSERT_EQUAL_STRING(" apple = 89",str1);
 }
 
 void test_stringCompare_apple_space_assign_with_assign_return_false(void)
@@ -186,7 +197,7 @@ void test_stringCompare_assign_space_apple_with_space_assign_space_space_and_ori
 }
 
 //FOR COMPARE EQUAL SIGN  //DONE
-
+/*
 void test_stringCompare_equal_with_equal_return_true(void)
 {
   char *str1 = "=";
@@ -352,7 +363,7 @@ void test_parseTextAndAssignValues_given_orange_21346_apple_1_lemon_10_should_as
     freeError(e);
   }
 }
-
+*/
 void test_parseTextAndAssignValues_given_melon_and_value_with_trailing_spaces_should_parse_properly(void) {
   CEXCEPTION_T e;
   int melon = 0;
@@ -369,7 +380,7 @@ void test_parseTextAndAssignValues_given_melon_and_value_with_trailing_spaces_sh
     printf(e->errorMsg);
     freeError(e);
   }
-}*/
+}
 /*
 ///OK no prb
 void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
@@ -432,7 +443,7 @@ void test_parseTextAndAssignValues_given_malform_pineapple_without_equal_sign_sh
     freeError(e);
   }
 }*/
-
+/*
 void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_throw_ERR_NOT_A_NUMBER(void) {
   CEXCEPTION_T e;
   int ciku = 0;
@@ -450,4 +461,4 @@ void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_thro
     TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
     freeError(e);
   }
-}
+}*/

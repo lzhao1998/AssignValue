@@ -1,10 +1,11 @@
 #include "TextParser.h"
 #include "Exception.h"
+#include "Error.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
-#include <math.h>
+#include <malloc.h>
 
 /* Only compare the 1st word in the string, if there is another word or number
 ** behind the word in the strings, ignore it.
@@ -106,7 +107,10 @@ int parseAndConvertToNum(char **linePtr)
   free(temp1);
   return output;
 }
-
+char *skipWhiteSpaces(char *str) {
+  while(*str == ' ' || *str == '\t') str++;
+  return str;
+}
 void skipTheSpace(char **line)
 {
   //if there still got space, just skip it
@@ -122,7 +126,9 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
   //if there is space in front, skip it 1st
   while(isspace(**line))
   {
+    printf("a is %s\n", *line);
     *line++;
+    printf("b is %s\n", *line);
   }
 
   if(*line == NULL)
@@ -144,16 +150,24 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
       while(varTableMapping != NULL)
       {
         //if the name inside table is same with line
-        skipTheSpace(line);
+        //skipTheSpace(line);
+        while(isspace(**line))
+        {
+          printf("lineline is %s\n", *line);
+          //while(**line == ' ') 
+            *line++;
+          //(*line) = (*line) + 1;
+          printf("lineline2 is %s\n", *line);
+        }
         //int i = 0;
         //i = stringCompare(line,varTableMapping->name);
         //printf("i is %d\n", i);
-        //printf("line is %s\n", *line);
+        printf("line4 is %s\n", *line);
         if(*line == NULL)
         {
           throwSimpleError(2,"ERROR!! IT IS UNKNOWN VARIABLE!!");
         }
-        else if(stringCompare(line,varTableMapping->name) == 1)
+        else if(stringCompare(line,varTableMapping->name) == 1)  //HERE PROBLEM
         {
           //check for the equal sign, true = find value, false = throw error
           while(isspace(**line))
